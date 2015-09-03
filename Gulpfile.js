@@ -4,6 +4,7 @@ var gulp = require('gulp');
 // 引入组件
 var jshint = require('gulp-jshint');
 var sass = require('gulp-ruby-sass');
+var less = require("gulp-less");
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
@@ -22,6 +23,13 @@ gulp.task('sass', function() {
     .pipe(gulp.dest('./css'));
 });
 
+// 编译Less
+gulp.task('less', function() {
+    gulp.src('./less/**/*.less')
+        .pipe(less())
+        .pipe(gulp.dest('./css'));
+});
+
 // 合并，压缩文件
 gulp.task('scripts', function() {
     gulp.src('./js/*.js')
@@ -34,10 +42,10 @@ gulp.task('scripts', function() {
 
 // 默认任务
 gulp.task('default', function(){
-    gulp.run('lint', 'sass', 'scripts');
+    gulp.run('lint', 'sass',  'less','scripts');
 
     // 监听文件变化
     gulp.watch('./js/*.js', function(){
-        gulp.run('lint', 'sass', 'scripts');
+        gulp.run('lint', 'sass', 'less','scripts');
     });
 });
