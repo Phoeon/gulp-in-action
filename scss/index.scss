@@ -1,0 +1,14 @@
+$color : #f0f;
+@mixin repeat($selector : div, $times:3 ,$mix:null){
+	@for $i from 1 through $times{
+		#{$selector+$i}{
+		  //@if not ($mix==null){
+		   		  a:$i;
+		  //}
+		}
+	}
+}
+body{
+	color : $color;
+	@include repeat()
+}
